@@ -6,7 +6,10 @@ const gateway_proto = grpc.load(PROTO_PATH).gateway
 const http = require('./services/http')
 const builder = require('./services/builders')
 
+// Logger for development
 logger('dev')
+
+console.log(process.env.MYPAGE_HOST)
 
 /**
  * Implements the get RPC method.
@@ -35,11 +38,11 @@ function get(call, callback) {
  * Starts an RPC server that receives requests for the Greeter service at the
  * sample server port
  */
-function main() {
-  var server = new grpc.Server();
-  server.addService(gateway_proto.Gateway.service, {get: get});
-  server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
-  server.start();
+function runServer() {
+  let server = new grpc.Server()
+  server.addService(gateway_proto.Gateway.service, {get: get})
+  server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure())
+  server.start()
 }
 
-main();
+runServer()
