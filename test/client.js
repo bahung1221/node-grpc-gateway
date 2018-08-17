@@ -7,15 +7,7 @@ function main() {
   let client = new gateway_proto.Gateway('localhost:50051',
     grpc.credentials.createInsecure()),
     data = {
-      route: 'communities',
-      conditions: [
-        {
-          con: {is_valid: '1'}
-        },
-        {
-          con: {limit: '10'}
-        },
-      ],
+      route: 'api/surface/communities?productId=5991',
       cookies: [
         {
           cookie: {uname: 'hung'}
@@ -36,7 +28,7 @@ function main() {
 
   client.get(data, function(err, response) {
     console.log('Greeting:')
-    console.log(response)
+    console.log(JSON.parse(response.data))
   })
 }
 

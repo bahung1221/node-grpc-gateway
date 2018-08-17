@@ -11,18 +11,13 @@ service Gateway {
 // The request message containing the user's name.
 message Request {
   string route = 1;
-  repeated Condition conditions = 2;
-  repeated Cookie cookies = 3;
-  repeated Header headers = 4;
+  repeated Cookie cookies = 2;
+  repeated Header headers = 3;
 }
 
 // The response message containing the greetings
 message Response {
   string data = 1;
-}
-
-message Condition {
-  map<string, string> con = 1;
 }
 
 message Cookie {

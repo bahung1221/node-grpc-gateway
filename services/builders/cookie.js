@@ -2,21 +2,21 @@
  * Receive protobuf conditions object,
  * then response a standard conditions object
  *
- * @param conditions
+ * @param cookies
  */
-function parseCookies(conditions) {
-  let obj = {}
+function parseCookies(cookies) {
+  let str = ''
 
   // Loop over conditions array and mapping all element into general object
-  for (let index in conditions) {
-    let el = conditions[index]
+  for (let index in cookies) {
+    let el = cookies[index]
 
     // If element is valid, assign it into general object
     if (el.cookie) {
-      Object.assign(obj, el.cookie)
+      str += Object.keys(el.cookie)[0] + '=' + Object.values(el.cookie)[0] + '; '
     }
   }
-  return obj
+  return str
 }
 
 module.exports = {

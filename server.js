@@ -5,6 +5,7 @@ const PROTO_PATH = path.join(__dirname,  './protos/root.proto')
 const gateway_proto = grpc.load(PROTO_PATH).gateway
 const http = require('./services/http')
 const builder = require('./services/builders')
+const baseUrl = process.env.MYPAGE_HOST || 'http://127.0.0.1:8000/'
 
 // Logger for development
 logger('dev')
@@ -12,28 +13,30 @@ logger('dev')
 /**
  * Implements the get RPC method.
  */
-function get(call, callback) {
+async function get(call, callback) {
   let request = call.request,
-    conditions = request.conditions,
     cookies = request.cookies,
-    headers = request.headers
+    headers = request.headers,
+    parsedCookies = builder.cookie.parseCookies(cookies),
+    parsedHeaders = builder.header.parseHeaders(headers)
 
-  let req = {
-    route: request.route,
-    conditions: builder.condition.parseConditions(conditions),
-    cookies: builder.cookie.parseCookies(cookies),
-    headers: builder.header.parseHeaders(headers)
-  },
-    baseUrl = process.env.MYPAGE_HOST
+  // Add cookies into headers
+  parsedHeaders.Cookie = parsedCookies
 
-  http.get(`${baseUrl}api/surface/communities`)
-    .then(res => {
-      console.log(res.data)
+  // Get response
+  let res
+
+  try {
+    res = await http.get(`${baseUrl}${request.route}`, {
+      headers: parsedHeaders
     })
-    .catch(e => console.error(e))
+  } catch (e) {
+    console.error(e)
+  }
 
+  // Response to client
   callback(null, {
-    data: JSON.stringify(req)
+    data: JSON.stringify(res)
   })
 }
 
