@@ -10,15 +10,19 @@ service Gateway {
 
 // The request message containing the user's name.
 message Request {
-  string name = 1;
-  repeated Cookie cookies = 3;
+  repeated Cookie cookies = 2;
+  repeated Header headers = 3;
 }
 
 // The response message containing the greetings
 message Response {
-  string message = 1;
+  string data = 1;
 }
 
 message Cookie {
   map<string, string> cookie = 1;
+}
+
+message Header {
+  map<string, string> header = 1;
 }

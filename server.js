@@ -1,6 +1,6 @@
 const path = require('path')
 const grpc = require('grpc')
-const PROTO_PATH = path.join(__dirname,  './protos/helloworld.proto')
+const PROTO_PATH = path.join(__dirname,  './protos/root.proto')
 const hello_proto = grpc.load(PROTO_PATH).helloworld
 
 /**
@@ -8,7 +8,7 @@ const hello_proto = grpc.load(PROTO_PATH).helloworld
  */
 function get(call, callback) {
   callback(null, {
-    message: JSON.stringify(call.request.cookies)
+    data: JSON.stringify(call.request)
   })
 }
 
