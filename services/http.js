@@ -1,4 +1,9 @@
 const axios = require('axios')
-const http = axios.create()
+const options = {
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest',
+  },
+}
+const http = axios.create(options)
 
 module.exports = http
