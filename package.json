@@ -1,0 +1,15 @@
+{
+  "name": "mypage-grpc-gateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ba Hung, nguyenbahung@gogojungle.vn",
+  "license": "ISC",
+  "dependencies": {
+    "google-protobuf": "^3.6.1",
+    "grpc": "^1.14.1"
+  }
+}

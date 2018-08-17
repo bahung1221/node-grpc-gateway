@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package helloworld;
+
+// The greeting service definition.
+service Gateway {
+  // Sends a greeting
+  rpc get (Request) returns (Response) {}
+}
+
+// The request message containing the user's name.
+message Request {
+  string name = 1;
+  repeated Cookie cookies = 3;
+}
+
+// The response message containing the greetings
+message Response {
+  string message = 1;
+}
+
+message Cookie {
+  map<string, string> cookie = 1;
+}
