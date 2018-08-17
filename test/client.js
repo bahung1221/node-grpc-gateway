@@ -1,12 +1,21 @@
 const path = require('path')
 const grpc = require('grpc')
 const PROTO_PATH = path.join(__dirname, '../protos/root.proto')
-const hello_proto = grpc.load(PROTO_PATH).helloworld
+const gateway_proto = grpc.load(PROTO_PATH).gateway
 
 function main() {
-  let client = new hello_proto.Gateway('localhost:50051',
+  let client = new gateway_proto.Gateway('localhost:50051',
     grpc.credentials.createInsecure()),
     data = {
+      route: 'communities',
+      conditions: [
+        {
+          con: {is_valid: '1'}
+        },
+        {
+          con: {limit: '10'}
+        },
+      ],
       cookies: [
         {
           cookie: {uname: 'hung'}
