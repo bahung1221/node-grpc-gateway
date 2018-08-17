@@ -9,8 +9,6 @@ const builder = require('./services/builders')
 // Logger for development
 logger('dev')
 
-console.log(process.env.MYPAGE_HOST)
-
 /**
  * Implements the get RPC method.
  */
@@ -25,9 +23,14 @@ function get(call, callback) {
     conditions: builder.condition.parseConditions(conditions),
     cookies: builder.cookie.parseCookies(cookies),
     headers: builder.header.parseHeaders(headers)
-  }
+  },
+    baseUrl = process.env.MYPAGE_HOST
 
-  console.log(req)
+  http.get(`${baseUrl}api/surface/communities`)
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(e => console.error(e))
 
   callback(null, {
     data: JSON.stringify(req)

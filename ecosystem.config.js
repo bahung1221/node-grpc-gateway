@@ -25,7 +25,7 @@ module.exports = {
       script: './server.js',
       env: envConfig,
       node_args: [],
-      watch: envConfig.parsed.NODE_ENV === 'development',
+      watch: ENV === 'development',
       wait_ready: true,
       ignore_watch: patterns,
       error_file: './logs/err.log',
