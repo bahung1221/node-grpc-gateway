@@ -15,13 +15,13 @@ logger('dev')
  */
 async function get(call, callback) {
   let request = call.request,
-    cookies = request.cookies,
+    // cookies = request.cookies,
     headers = request.headers,
-    parsedCookies = builder.cookie.parseCookies(cookies),
+    // parsedCookies = builder.cookie.parseCookies(cookies),
     parsedHeaders = builder.header.parseHeaders(headers)
 
   // Add cookies into headers
-  parsedHeaders.Cookie = parsedCookies
+  // parsedHeaders.Cookie = parsedCookies
 
   // Get response
   let res
@@ -36,7 +36,7 @@ async function get(call, callback) {
 
   // Response to client
   callback(null, {
-    data: JSON.stringify(res)
+    data: JSON.stringify(res.data)
   })
 }
 
