@@ -25,7 +25,7 @@ RpcClient.prototype.setHeaders = function (headers) {
 }
 
 /**
- * Perform rpc get request
+ * Perform a rpc get request
  *
  * @param api
  * @returns {Promise<any>}
@@ -34,6 +34,7 @@ RpcClient.prototype.get = function (api) {
   let self = this
 
   return new Promise(function (resolve, reject) {
+    // Get GRPC client & request data
     let rpcServerHost = process.env.RPC_SERVER_HOST || 'localhost:50051',
       client = new gateway_proto.Gateway(rpcServerHost, grpc.credentials.createInsecure()),
       data = {
@@ -42,10 +43,13 @@ RpcClient.prototype.get = function (api) {
         headers: builder.parseHeader(self._headers)
       }
 
+    // Send request
     client.get(data, function(err, response) {
       if (err) {
         reject(err)
       }
+
+      // Resolve response
       resolve(JSON.parse(response.data))
     })
   })
