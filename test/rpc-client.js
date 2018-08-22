@@ -50,7 +50,7 @@ RpcClient.prototype.get = function (api) {
       }
 
       // Resolve response
-      resolve(JSON.parse(response.data))
+      resolve(JSON.parse(response.data).data)
     })
   })
 }

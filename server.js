@@ -32,11 +32,15 @@ async function get(call, callback) {
     })
   } catch (e) {
     console.error(e)
+    res = []
   }
 
   // Response to client
   callback(null, {
-    data: JSON.stringify(res.data)
+    data: JSON.stringify({
+      data: res.data,
+      headers: res.headers
+    })
   })
 }
 
